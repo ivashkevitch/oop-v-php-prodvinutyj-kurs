@@ -15,7 +15,7 @@ class ArticlesController
         $this->view = new View(__DIR__ . '/../../../templates');
     }
 
-    public function view(int $articleId)
+    public function view(int $articleId): void
     {
         $article = Article::getById($articleId);
 
@@ -27,5 +27,21 @@ class ArticlesController
         $this->view->renderHtml('articles/view.php', [
             'article' => $article
         ]);
+    }
+
+    public function edit(int $articleId): void
+    {
+        /** @var Article $article */
+        $article = Article::getById($articleId);
+
+        if ($article === null) {
+            $this->view->renderHtml('errors/404.php', [], 404);
+            return;
+        }
+
+        $article->setName('Новое название статьи');
+        $article->setText('Новый текст статьи');
+
+        $article->save();
     }
 }
