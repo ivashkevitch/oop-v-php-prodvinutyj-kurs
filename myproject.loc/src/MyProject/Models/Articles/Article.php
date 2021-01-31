@@ -89,6 +89,24 @@ class Article extends ActiveRecordEntity
         return $article;
     }
 
+    public function updateFromArray(array $fields): Article
+    {
+        if (empty($fields['name'])) {
+            throw new InvalidArgumentException('Не передано название статьи');
+        }
+
+        if (empty($fields['text'])) {
+            throw new InvalidArgumentException('Не передан текст статьи');
+        }
+
+        $this->setName($fields['name']);
+        $this->setText($fields['text']);
+
+        $this->save();
+
+        return $this;
+    }
+
     protected static function getTableName(): string
     {
         return 'articles';
