@@ -43,3 +43,19 @@ ALTER TABLE `articles`
 
 ALTER TABLE `users`
     MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+
+
+CREATE TABLE `users_activation_codes` (
+                                          `id` int(11) NOT NULL,
+                                          `user_id` int(11) NOT NULL,
+                                          `code` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `users_activation_codes`
+    ADD PRIMARY KEY (`id`);
+
+
+ALTER TABLE `users_activation_codes`
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;

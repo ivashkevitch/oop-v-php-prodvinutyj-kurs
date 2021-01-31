@@ -36,6 +36,20 @@ class User extends ActiveRecordEntity
         return $this->nickname;
     }
 
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function activate(): void
+    {
+        $this->isConfirmed = true;
+        $this->save();
+    }
+
     public static function signUp(array $userData)
     {
         if (empty($userData['nickname'])) {
