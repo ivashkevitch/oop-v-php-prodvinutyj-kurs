@@ -72,6 +72,20 @@ abstract class ActiveRecordEntity
         $this->id = null;
     }
 
+    public static function findOneByColumn(string $columnName, $value): ?self
+    {
+        $db = Db::getInstance();
+        $result = $db->query(
+            'SELECT * FROM `' . static::getTableName() . '` WHERE `' . $columnName . '` = :value LIMIT 1;',
+            [':value' => $value],
+            static::class
+        );
+        if ($result === []) {
+            return null;
+        }
+        return $result[0];
+    }
+
     abstract protected static function getTableName(): string;
 
     private function update(array $mappedProperties): void
