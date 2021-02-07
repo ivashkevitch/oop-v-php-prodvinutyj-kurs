@@ -8,9 +8,15 @@ class MainController extends AbstractController
 {
     public function main()
     {
-        $articles = Article::findAll();
+        $this->page(1);
+    }
+
+    public function page(int $pageNum)
+    {
         $this->view->renderHtml('main/main.php', [
-            'articles' => $articles,
+            'articles' => Article::getPage($pageNum, 5),
+            'pagesCount' => Article::getPagesCount(5),
+            'currentPageNum' => $pageNum,
         ]);
     }
 }

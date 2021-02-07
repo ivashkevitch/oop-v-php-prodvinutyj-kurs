@@ -86,6 +86,31 @@ abstract class ActiveRecordEntity
         return $result[0];
     }
 
+    public static function getPagesCount(int $itemsPerPage): int
+    {
+        $db = Db::getInstance();
+        $result = $db->query('SELECT COUNT(*) AS cnt FROM ' . static::getTableName() . ';');
+        return ceil($result[0]->cnt / $itemsPerPage);
+    }
+
+    /**
+     * @return static[]
+     */
+    public static function getPage(int $pageNum, int $itemsPerPage): array
+    {
+        $db = $db = Db::getInstance();
+        return $db->query(
+            sprintf(
+                'SELECT * FROM `%s` ORDER BY id DESC LIMIT %d OFFSET %d;',
+                static::getTableName(),
+                $itemsPerPage,
+                ($pageNum - 1) * $itemsPerPage
+            ),
+            [],
+            static::class
+        );
+    }
+
     abstract protected static function getTableName(): string;
 
     private function update(array $mappedProperties): void
