@@ -1,4 +1,5 @@
 <?php
+$startTime = microtime(true);
 
 try {
     spl_autoload_register(function (string $className) {
@@ -38,3 +39,7 @@ try {
     $view = new \MyProject\View\View(__DIR__ . '/../templates/errors');
     $view->renderHtml('401.php', ['error' => $e->getMessage()], 401);
 }
+
+$endTime = microtime(true);
+
+printf('<div style="text-align: center; padding: 5px">Время генерации страницы: %f</div>', $endTime - $startTime );
