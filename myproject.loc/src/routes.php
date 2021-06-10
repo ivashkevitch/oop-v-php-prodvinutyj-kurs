@@ -9,4 +9,6 @@ return [
     '~^users/login$~' => [\MyProject\Controllers\UsersController::class, 'login'],
     '~^$~' => [\MyProject\Controllers\MainController::class, 'main'],
     '~^(\d+)$~' => [\MyProject\Controllers\MainController::class, 'page'],
+    '~^before/(\d+)$~' => [\MyProject\Controllers\MainController::class, 'before'],
+    '~^after/(\d+)$~' => [\MyProject\Controllers\MainController::class, 'after'],
 ];
